@@ -1,0 +1,143 @@
+Probability-Based Word Predictor Using N-Gram Models (Uni and bigram model)
+
+Introduction 
+
+Language prediction is the task of predicting what word is likely to occur next in a sequence of words. It is used in applications such as autocomplete, search 
+suggestions, text editors, speech recognition, and conversational systems. The objective of this project is to build a simple probability-based word predictor in
+Python. Instead of using a neural network, the initial version uses fundamental concepts from probability and statistics to understand how word prediction can be 
+performed. The project begins with a unigram probability model and is then extended to a bigram model, where the previous word is used as context for predicting 
+the next word.
+
+Given a sequence of words, the objective is to predict the most probable next word.
+
+For example:
+I want to learn ___
+
+A word predictor should estimate the probability of possible next words and select the word with the highest probability.
+Mathematically:
+
+w^*= argmax P(w|mid context) 
+
+For a bigram model, the context consists of one previous word:
+
+w^∗ = argwmaxP(w∣wi−1)
+
+Let W represent a randomly selected word from the corpus.
+
+The possible values of W are the words in the vocabulary V.
+
+Therefore:
+W in V 
+
+Since the possible outcomes are discrete words, W is a discrete random variable.
+
+Probability Distribution
+
+The probability of a word is calculated as:
+
+p(W = w) = C(w) / N
+
+where:
+C(w) = number of occurrences of word w
+N = total number of words
+(P(W=w) = probability of the word
+
+For this example in the python code:
+N=50
+
+For example, the word programming occurs 5 times.
+
+Therefore:
+
+P(programming)= 5/50 =0.10
+
+The word i occurs 11 times:
+
+P(i)= 11/50 = 0.22
+
+
+Bigram model
+
+Mathematically, two consecutive words can be represented by random variables:
+
+Wi,Wi+1 
+
+A bigram is:
+
+(Wi,Wi+1)
+
+Conditional Probability
+
+The main mathematical improvement is conditional probability.
+
+
+P(w)
+
+we ask:
+
+What is the probability of seeing w, given the current word?
+
+This is:
+P(w|c)
+ 
+where:
+
+c = current word/context
+w = next word
+
+The bigram probability is estimated as:
+P(w | c) = C(c, w)/C(c)
+
+example -
+The word I is followed by:
+
+like — 3 times
+want — 3 times
+enjoy — 5 times
+
+Therefore:
+
+C(I)=11 
+
+So:
+
+ P(like| I)= 3/ 11 = 0.2727
+ P(want| I)= 3/11 = 0.2727
+ 
+
+and:
+
+P(enjoy| I) = 5/11 = 0.4545
+ 
+Therefore the most probable next word after I is:
+enjoy
+ 
+Prediction Rule - 
+
+The bigram model predicts the word with the highest conditional probability:
+
+w^∗ = argwmaxP(w∣c)
+ 
+Limitations/ problems faced -
+
+1) Data Sparsity
+
+Many possible word combinations do not appear in the corpus.
+
+For example, a valid English combination might have:
+C(c,w)=0
+
+The unsmoothed model would therefore assign:
+P(w| c)=0 
+
+even though the combination might be possible in real language. if in future we were to multiply probabilities we would face a problem as probability is zero.
+
+2) Small Dataset
+
+The current corpus contains only 50 tokens. Therefore, the probabilities are strongly dependent on this small dataset and cannot represent general English language usage.
+it may miss punctuation (., , +,"",`, ?, etc ) it has only the understanding of stats without understanding the language.
+
+we could later pick the top k predictions of the model. the bigram model has increased context as it considers the previous word too. The bigram model contains more 
+information than the unigram model because it considers the previous word. However, this does not mean that increasing the N-gram size will always improve accuracy. we 
+will check this for other models. the bigram model still misses context as it only considers the previous one wor for prediction.
+  
