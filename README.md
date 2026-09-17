@@ -331,10 +331,20 @@ The planned progression is:
     Trigram
         ↓
     4-gram
-        ↓
-    5-gram
-
 The different models will eventually be compared using measures such as:
 
 - Top-1 accuracy
 - Top-5 accuracy
+
+
+while trying examples i realized that there were many issues.
+
+1) the 0 problem, if probability of an unknown word would were to come it would get assigned as 0. since this would affect prediction in the future. as we were going to multiply probabilities as a chain.
+
+for solving this issue we could do smoothing - P(w∣c)= C(c,w)+α / C(c)+α∣V∣
+
+if we were to calculate the product of probabilities using markov's chain rule 
+
+we would have to multiply n-1 probabilities of words this would be inefficient computationally, instead we could use logarithmic additions and then convert them back using exponents
+
+​
